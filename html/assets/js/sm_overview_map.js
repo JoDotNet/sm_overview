@@ -262,6 +262,11 @@ SMOverviewMap = (function() {
                     // div.innerHTML += "<div class='tileid'>"+cell.tileid+"</div>"
 
                     var turl = getTileURL(cell.tileid,cell.x,cell.y);
+                    // sm_overview: fall back to the game's own tile preview PNG, keyed by uid.
+                    // Covers newer tiles that have no legacy id / no repo screenshot.
+                    if(!turl && cell.uid) {
+                        turl = './assets/img/tiles_uid/' + cell.uid + '.png';
+                    }
                     if(!turl) {
                         if(cell.type != "LAKE" && POI_SIZES[cell.poiType] == undefined) {
                             console.log(`Missing tile at ${x},${y*-1} for id ${cell.tileid} ${cell.type}`)
@@ -273,8 +278,11 @@ SMOverviewMap = (function() {
                     if(turl) {
                         tile.classList.remove(cell.type.toLowerCase())
                         var img = document.createElement('img');
-                        img.src = turl
                         img.classList.add('tileimg')
+                        // sm_overview: if the image is missing, drop it and restore the
+                        // flat biome colour rather than showing a broken-image icon.
+                        img.onerror = function(){ this.remove(); tile.classList.add(cell.type.toLowerCase()); };
+                        img.src = turl
                         inner.appendChild(img);
                         if(cell.rotation != 0) {
                             img.classList.add('rot-' + cell.rotation)
