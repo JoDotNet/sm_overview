@@ -73,6 +73,10 @@ then to a flat biome colour.
   biome colour by default. Pass `--skip-folders ""` to `build_tiles.py` to
   convert them anyway.
 - **Terrain height** isn't really represented (same as the original).
+- **First load is slower.** Clearing the script cache (needed so the game picks
+  up the patch) means Scrap Mechanic rebuilds it on the next launch, so that one
+  load takes longer than usual. This happens once after patching and once more
+  after the originals are restored - both normal.
 - **Local vs hosted:** `setup.ps1` embeds the JSON into `index.html` so it opens
   over `file://`. If you host `html/` on a real web server instead, use the
   pristine `index.html` (the `$.getJSON` fetch of `assets/json/cells.json` works

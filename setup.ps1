@@ -204,6 +204,8 @@ foreach ($cr in $cacheRoots) {
     }
 }
 if ($deleted -gt 0) { Good "  cleared $deleted cache bundle(s)" } else { Warn "  no cache bundle found (fine - it'll build fresh)" }
+Warn "  Heads up: the next time Scrap Mechanic loads it'll be slower than usual"
+Warn "  while it rebuilds this cache. That's a one-time thing and completely normal."
 Write-Host ""
 
 # ---------- 6. play ----------
@@ -266,6 +268,7 @@ if (YesNo "Restore your original game scripts now? (recommended)") {
             ForEach-Object { try { Remove-Item -LiteralPath $_.FullName -Recurse -Force -ErrorAction Stop } catch {} }
     }
     Good "  original scripts restored"
+    Warn "  (Your next normal game launch will also load slower once, rebuilding the cache.)"
 } else {
     Warn "  left the patched scripts in place."
 }

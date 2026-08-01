@@ -28,6 +28,8 @@ What it does, in order:
   - restores your original game scripts
 
 Notes:
+  - The first game load after patching is slower than usual (the cache is
+    rebuilding). That's normal and happens once; same again after restore.
   - Deep 3D tiles (excavation, ravine, underground...) stay as flat biome colour;
     they don't flatten cleanly. See README.md to include them anyway.
   - After it finishes you can also Verify Integrity of Game Files in Steam to be
